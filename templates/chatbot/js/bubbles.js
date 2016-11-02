@@ -44,8 +44,15 @@ function bubbleCSV(id, file){
           if (link_dict[d3.select(this).attr("id")]) {
             openInNewTab(link_dict[d3.select(this).attr("id")]);
           }
-          d3.select(this).style('opacity', 0.5); //just to make sure
-          setTimeout(function(){d3.select(this).style('opacity', 1);}, 500);
+          var circ = d3.select(this); //just to make sure
+          var opac = circ.style('opacity');
+          circ.style.transition = "all 0.5s";
+          circ.style.WebKitTransition = "all 0.5s";
+          if (opac == 1) {
+            circ.style('opacity', 0.5);
+          } else if (opac == 0.5) {
+            circ.style('opacity', 1);
+          }
         });
     node.append("clipPath")
         .attr("id", function(d) { return "clip-" + d.id; })
@@ -59,7 +66,8 @@ function bubbleCSV(id, file){
       .enter().append("tspan")
         .attr("x", 0)
         .attr("y", function(d, i, nodes) { return 13 + (i - nodes.length / 2 - 0.5) * 10; })
-        .text(function(d) { return d; });
+        .text(function(d) { return d; })
+        .attr("text-anchor", "middle");
 
     node.append("title")
         .text(function(d) { return d.id + "\n" + format(d.value); });
