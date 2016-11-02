@@ -1,3 +1,9 @@
+var link_dict = {'Golden West Brewery': 'https://www.eventbrite.com/e/brewery-tour-oakland-tickets-28915784891?aff=es2',
+ 'Bison Happy Hour': 'https://www.eventbrite.com/e/happy-hour-tickets-27616181743?aff=es2',
+ 'Sushi-making Class': 'https://www.eventbrite.com/e/learn-from-the-master-sushi-class-rolls-san-francisco-2016-tickets-25549651696?aff=es2',
+ 'Spanish Cooking Class': 'https://www.eventbrite.com/e/spanish-cooking-class-in-berkeley-tickets-27416225669?aff=es2'}
+
+
 function bubbleCSV(id, file){
   var svg = d3.select(id),
     width = +svg.attr("width");
@@ -11,7 +17,6 @@ function bubbleCSV(id, file){
       .padding(1.5);
 
   d3.csv(file, function(d) {
-    console.log(d.value);
     d.value = +3;
     if (d.value) return d;
   }, function(error, classes) {
@@ -36,6 +41,9 @@ function bubbleCSV(id, file){
         .attr("r", function(d) { return 100; })
         .style("fill", function(d) { return color(d.package); })
         .on("click", function() {
+          if (link_dict[d3.select(this).attr("id")]) {
+            openInNewTab(link_dict[d3.select(this).attr("id")]);
+          }
           d3.select(this).style('opacity', 0.5); //just to make sure
           setTimeout(function(){d3.select(this).style('opacity', 1);}, 500);
         });
@@ -56,5 +64,10 @@ function bubbleCSV(id, file){
     node.append("title")
         .text(function(d) { return d.id + "\n" + format(d.value); });
   });
+}
+
+function openInNewTab(url) {
+  var win = window.open(url, '_blank');
+  win.focus();
 }
 

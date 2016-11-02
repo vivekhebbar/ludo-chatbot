@@ -2,7 +2,10 @@ var idPopulate = 'for-populate';
 var idTitle = 'title-ludo';
 var api_token = 'AIzaSyCF_IWxe2IsNZZ3rh-gEVr4bJ1gIak0vF0';
 var user_dict = {};
-
+var i = -1;
+var arrChoices = ["How do you want to spend your time?", "Awesome. More specifically, which of the following are you interested in?", "Here are my recommendations! You can click on them to explore:"];
+var csvFiles = ['csv/spend.csv', 'csv/specific.csv', 'csv/final.csv'];
+// var svg_ids = ['#spend-svg', '#spec-svg'];
 window.onload = function() {initial();};
 
 function initial() {
@@ -68,7 +71,6 @@ function takeLocation() {
 			user_dict.address = results.formatted_address;
 			user_dict.lat = results.geometry.location.lat;
 			user_dict.lng = results.geometry.location.lng;
-			//changeOpacityById(idPopulate, user_dict.lng, 0);
 			askInitialTimeQuery();
 		}
 	}
@@ -83,13 +85,27 @@ function askInitialTimeQuery() {
 	answer1 += ' What time frame were you thinking?';
 	answer1 += ' Pick one of the following options:</br>';
 	var svgHtml = '<svg width="800" height="600" id="init-svg"></svg></br>';
-	var submit = '<h2 id="submit-time-frame" onclick= next()>Submit</h2>';
+	var submit = '<h2 id="submit-time-frame" onclick= resetCanvasAndRecommend()>Submit</h2>';
 	document.getElementById(idPopulate).innerHTML = answer1 + svgHtml + submit;
 	bubbleCSV('#init-svg','csv/init.csv');
 }
 
-function next() {
-	alert("yo");
+function resetCanvasAndRecommend() {
+	//changeOpacityById(idPopulate, "", 0);
+	i = i + 1;
+	if (i >= arrChoices.length) {
+		return;
+	}
+	var choice = arrChoices[i];
+	var csv_file = csvFiles[i];
+	console.log(csv_file)
+	// var svg_id = svg_ids[i];
+	var answer1 = '<h2>' + choice + '</h2>'
+	var svgHtml = '<svg width="800" height="600" id="init-svg"></svg></br>';
+	var submit = '<h2 onclick= resetCanvasAndRecommend()>Submit</h2>';
+	document.getElementById(idPopulate).innerHTML = answer1 + svgHtml + submit;
+	bubbleCSV("#init-svg", csv_file);
+
 }
 
 function queryDecisionTree(){
