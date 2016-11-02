@@ -60,7 +60,10 @@ h2 {
   -o-transition-timing-function: linear;
   transition-timing-function: linear;
 }
-
+#forPopulate {
+  background-color: #d3d3d3;
+  background-opacity: 0.5;
+}
 }
 .form-group {
   width: 100%;
@@ -70,21 +73,32 @@ h2 {
 }
 #name {
   font-size: 24px;
-  opacity: 0.5;
+  color:#ffffff;
+  background-color:#000;
+  opacity: 1;
   display:inline-block;
   width: 40%;
   position:relative;
-  text-align: center
-  border: 10px solid white;
+  text-align: center;
+  border: 1px solid white;
+  border-opacity: 1;
 }
-#name, textarea {
-  color: #FFFFFF;
+#name:focus {
+  color: #ffffff;
+  opacity: 0.75;
 }
 .form-group h2 {
   font-size: 24px;
   display:inline-block;
   width: 20%;
   position:relative;
+}
+#im-game {
+  font-size: 36px;
+  text-align: center;
+  position:relative;
+  font-weight: 700;
+
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
