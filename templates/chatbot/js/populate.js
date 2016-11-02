@@ -82,9 +82,9 @@ function askInitialTimeQuery() {
 	var answer1 = '<h2>' + user_dict.address + ' sounds great!</h2></br>'
 	answer1 += ' What time frame were you thinking?';
 	answer1 += ' Pick one of the following options:';
-	var svgHtml = '<svg width="500" height="600"></svg>';
+	var svgHtml = '<svg width="800" height="600" id="init-svg"></svg>';
 	document.getElementById(idPopulate).innerHTML = answer1 + svgHtml;
-	bubbleCSV('csv/init1.csv');
+	bubbleCSV('#init-svg','csv/init.csv');
 }
 
 function queryDecisionTree(){

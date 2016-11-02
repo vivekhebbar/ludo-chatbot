@@ -1,11 +1,13 @@
-function bubbleCSV(file){
-  var svg = d3.select("svg"),
+function bubbleCSV(id, file){
+  var svg = d3.select(id),
     width = +svg.attr("width");
+    height = +svg.attr("height");
+
   var format = d3.format(",d");
   var color = d3.scaleOrdinal(d3.schemeCategory20c);
   //create bubble nodes
   var pack = d3.pack()
-      .size([width, width])
+      .size([width, height])
       .padding(1.5);
 
   d3.csv(file, function(d) {
@@ -31,9 +33,12 @@ function bubbleCSV(file){
 
     node.append("circle")
         .attr("id", function(d) { return d.id; })
-        .attr("r", function(d) { return 3; })
-        .style("fill", function(d) { return color(d.package); });
-
+        .attr("r", function(d) { return 100; })
+        .style("fill", function(d) { return color(d.package); })
+        .on("click", function() {
+          d3.select(this).style('opacity', 0.5); //just to make sure
+          setTimeout(function(){d3.select(this).style('opacity', 1);}, 500);
+        });
     node.append("clipPath")
         .attr("id", function(d) { return "clip-" + d.id; })
       .append("use")
