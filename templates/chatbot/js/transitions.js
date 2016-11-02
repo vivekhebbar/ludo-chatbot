@@ -1,3 +1,4 @@
+
 function changeById(id, newText, nextTime) {
 	var c = document.getElementById(id);
 	c.style.transition = "all 0.5s";
