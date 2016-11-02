@@ -1,7 +1,8 @@
 var link_dict = {'Golden West Brewery': 'https://www.eventbrite.com/e/brewery-tour-oakland-tickets-28915784891?aff=es2',
  'Bison Happy Hour': 'https://www.eventbrite.com/e/happy-hour-tickets-27616181743?aff=es2',
  'Sushi-making Class': 'https://www.eventbrite.com/e/learn-from-the-master-sushi-class-rolls-san-francisco-2016-tickets-25549651696?aff=es2',
- 'Spanish Cooking Class': 'https://www.eventbrite.com/e/spanish-cooking-class-in-berkeley-tickets-27416225669?aff=es2'}
+ 'Spanish Cooking Class': 'https://www.eventbrite.com/e/spanish-cooking-class-in-berkeley-tickets-27416225669?aff=es2',
+ 'Holiday Cooking Boot Camp': 'https://www.eventbrite.com/e/holiday-boot-camp-cooking-class-in-berkeley-pies-and-tarts-tickets-27416504503?aff=ehomecard'}
 
 
 function bubbleCSV(id, file){
@@ -67,7 +68,8 @@ function bubbleCSV(id, file){
         .attr("x", 0)
         .attr("y", function(d, i, nodes) { return 13 + (i - nodes.length / 2 - 0.5) * 10; })
         .text(function(d) { return d; })
-        .attr("text-anchor", "middle");
+        .attr("text-anchor", "middle")
+        .attr("display", "inline");
 
     node.append("title")
         .text(function(d) { return d.id + "\n" + format(d.value); });

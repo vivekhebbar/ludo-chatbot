@@ -10,7 +10,7 @@ window.onload = function() {initial();};
 
 function initial() {
 	//display website welcome sign
-	var str1 = '<a href="index.html">WELCOME TO LuDO</a>'
+	var str1 = '<a href="index.html">WELCOME TO LuDO!</a>'
 	var nexttime = changeOpacityById(idTitle, str1, 0);
 	//display subtitle
 	var nT = '<h2>LuDO is a chatbot that will recommend you activities for you to enjoy!</h2></br><h2 onclick="showInput()">Click here to begin&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-down"></i></h2>';
@@ -37,7 +37,7 @@ function start() {
 	var str1 = '<h2>Well hey there,  ' + user_dict.name + '! Nice to meet you.</h2>';
 	var nexttime = changeOpacityById(idPopulate, str1, 0);
 	var str2 = '<h2>My name\'s LuDO, and I\'m here for you if you\'re bored and want something to do...</h2></br>';
-	var strbtn = '<h2 id="im-game" onclick=askInitialLocationQuery()>' + '<i class="fa fa-arrow-circle-right"></i>&nbsp;&nbsp;&nbsp;&nbsp;' + "I'M GAME" +'&nbsp;&nbsp;&nbsp;&nbsp;</h2>';
+	var strbtn = '<h2 id="im-game" onclick=askInitialLocationQuery()>' + "I'M GAME" +'&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></h2>';
 	changeOpacityById(idPopulate, str2 + strbtn, nexttime + 1000);
 }
 
@@ -84,14 +84,15 @@ function askInitialTimeQuery() {
 	var answer1 = '<h2>' + user_dict.address + ' sounds great!</h2>'
 	answer1 += ' What time frame were you thinking?';
 	answer1 += ' Pick one of the following options:</br>';
-	var svgHtml = '<svg width="800" height="600" id="init-svg"></svg></br>';
-	var submit = '<h2 id="submit-time-frame" onclick= resetCanvasAndRecommend()>Submit</h2>';
+	var svgHtml = '<svg width="700" height="500" id="init-svg"></svg></br>';
+	var submit = '<h2 id="submit-bubbles" onclick= resetCanvasAndRecommend()>Submit</h2>';
 	document.getElementById(idPopulate).innerHTML = answer1 + svgHtml + submit;
 	bubbleCSV('#init-svg','csv/init.csv');
 }
 
 function resetCanvasAndRecommend() {
-	//changeOpacityById(idPopulate, "", 0);
+	//var nexttime = changeOpacityById(idPopulate, "", 0);
+	document.getElementById(idPopulate).innerHTML = "";
 	i = i + 1;
 	if (i >= arrChoices.length) {
 		return;
@@ -101,28 +102,8 @@ function resetCanvasAndRecommend() {
 	console.log(csv_file)
 	// var svg_id = svg_ids[i];
 	var answer1 = '<h2>' + choice + '</h2>'
-	var svgHtml = '<svg width="800" height="600" id="init-svg"></svg></br>';
-	var submit = '<h2 onclick= resetCanvasAndRecommend()>Submit</h2>';
+	var svgHtml = '<svg width="700" height="500" id="init-svg"></svg></br>';
+	var submit = '<h2 id="submit-bubbles" onclick= resetCanvasAndRecommend()>Submit</h2>';
 	document.getElementById(idPopulate).innerHTML = answer1 + svgHtml + submit;
 	bubbleCSV("#init-svg", csv_file);
-
-}
-
-function queryDecisionTree(){
-	alert("yo");
-}
-
-function choices() {
-	choiceList = bogusChoices();
-	var labels = choiceList[0]
-	probs = choiceList[1]
-	alert(labels);
-}
-
-function bogusChoices() {
-	var arr1 = ['Steel', 'Coal', 'Mining', 'Education', 'Medical', 'Law']
-	var arr2 = [1 , 2, 3, 1, 2, 4]
-	var sum2 = arr2.reduce(function(a,b) { return a+ b;}, 0);
-	for(var i=0; i<arr2.length; i++) { arr2[i] /= sum2;};
-	return [arr1, arr2];
 }
