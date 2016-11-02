@@ -30,7 +30,7 @@ h2 {
    -moz-box-shadow: 0 4px 8px -2px #111;
         box-shadow: 0 4px 8px -2px #111;*/
 }
-.title {
+#title-ludo {
   font-size: 60px;
   margin-top: 30px;
   margin-bottom: 15px;
@@ -39,7 +39,7 @@ h2 {
   float: left;
   clear: left;
 }
-.title a {
+#title-ludo a {
   color: #FFFFFF;
   text-decoration: none;
 }
@@ -51,21 +51,12 @@ h2 {
   width: 100%;
   float: left;
   clear: left;
-  /*-webkit-transition: opacity 1s;
-  -moz-transition: opacity 1s;
-  -o-transition: opacity 1s;
-  transition: opacity 1s;
-  -webkit-transition-timing-function: linear;
-  -moz-transition-timing-function: linear;
-  -o-transition-timing-function: linear;
-  transition-timing-function: linear;*/
 }
-#forPopulate {
+#for-populate {
   background-color: #d3d3d3;
   background-opacity: 0.5;
   min-height: 100px;
   max-height: 60%;
-}
 }
 .form-group {
   width: 100%;
@@ -84,10 +75,6 @@ h2 {
   text-align: center;
   border: 1px solid white;
   border-opacity: 1;
-}
-#name:focus {
-  color: #ffffff;
-  opacity: 0.9;
 }
 .form-group h2 {
   font-size: 24px;

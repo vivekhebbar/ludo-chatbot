@@ -5,5 +5,5 @@ function changeById(id, newText, nextTime) {
 	setTimeout(function(){c.style.opacity = 0;}, nextTime + 500);
 	setTimeout(function(){c.style.opacity = 1;}, nextTime + 999);
 	setTimeout(function(){c.innerHTML = newText;}, nextTime + 1000);
-	return nextTime + 1000;
+	return nextTime;
 }
