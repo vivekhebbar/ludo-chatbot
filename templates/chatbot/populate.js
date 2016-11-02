@@ -2,22 +2,22 @@ var id = 'forPopulate';
 
 function initial() {
 	var nT = '<div class="form-group"><input type="text" class="form-control" id="name" placeholder = "Hi! I\'m Ludo. Enter your name!" autocomplete="off" autofocus="autofocus" onkeydown="if (event.keyCode == 13) { takeName(); return false; }"><h2 id="pressenter" onclick="takeName()">Enter</h2></div>';
-	changeById(id, nT);
+	changeById(id, nT, 0);
 }
 
 function takeName() {
 	var nameInput = document.getElementById('name');
 	var userName = nameInput.value;
-	changeById(id, "");
+	changeById(id, "", 0);
 	start(userName);
 }
 
 function start(name) {
 	var str1 = '<h2>Well hey there,  ' + name + '! Nice to meet you.</h2>';
-	changeById(id, str1);
+	var nexttime = changeById(id, str1, 0);
 	var str2 = '<h2>My name\'s Ludo, and I\'m here for you if you\'re bored and want something to do...</h2></br>';
 	var strbtn = '<h2 id="im-game" onclick=next(name)>' + '<i class="fa fa-arrow-circle-right"></i>&nbsp;&nbsp;&nbsp;&nbsp;' + "I'M GAME" +'&nbsp;&nbsp;&nbsp;&nbsp;</h2>';
-	changeById(id, str2 + strbtn);
+	changeById(id, str2 + strbtn, nexttime + 2000);
 }
 
 function next(name) {
