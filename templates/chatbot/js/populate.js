@@ -11,7 +11,7 @@ function initial() {
 	var nexttime = changeOpacityById(idTitle, str1, 0);
 	//display subtitle
 	var nT = '<h2>LuDO is a chatbot that will recommend you activities for you to enjoy!</h2></br><h2 onclick="showInput()">Click here to begin&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-down"></i></h2>';
-	changeOpacityById(idPopulate, nT, nexttime + 1000);
+	changeOpacityById(idPopulate, nT, nexttime + 500);
 }
 
 function showInput(){
@@ -79,12 +79,17 @@ function takeLocation() {
 function askInitialTimeQuery() {
 	//called from AskInitialLocationQuery() as it is the next round of initial
 	//questioning. Now the user is asked what time frame he is looking for.
-	var answer1 = '<h2>' + user_dict.address + ' sounds great!</h2></br>'
+	var answer1 = '<h2>' + user_dict.address + ' sounds great!</h2>'
 	answer1 += ' What time frame were you thinking?';
-	answer1 += ' Pick one of the following options:';
-	var svgHtml = '<svg width="800" height="600" id="init-svg"></svg>';
-	document.getElementById(idPopulate).innerHTML = answer1 + svgHtml;
+	answer1 += ' Pick one of the following options:</br>';
+	var svgHtml = '<svg width="800" height="600" id="init-svg"></svg></br>';
+	var submit = '<h2 id="submit-time-frame" onclick= next()>Submit</h2>';
+	document.getElementById(idPopulate).innerHTML = answer1 + svgHtml + submit;
 	bubbleCSV('#init-svg','csv/init.csv');
+}
+
+function next() {
+	alert("yo");
 }
 
 function queryDecisionTree(){
