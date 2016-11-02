@@ -55,6 +55,7 @@ h2 {
 #for-populate {
   background-color: #d3d3d3;
   background-opacity: 0.5;
+  opacity: 0;
   min-height: 100px;
   max-height: 60%;
 }
