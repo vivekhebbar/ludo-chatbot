@@ -1,5 +1,6 @@
 var idPopulate = 'for-populate';
 var idTitle = 'title-ludo';
+var api_token = 'AIzaSyCF_IWxe2IsNZZ3rh-gEVr4bJ1gIak0vF0';
 var user_dict = {};
 
 window.onload = function() {initial();};
@@ -12,7 +13,7 @@ function initial() {
 }
 
 function showInput(){
-	var nT = '<div class="form-group"><input type="text" class="form-control" id="name" placeholder = "Hi! Give me your name/nickname" autocomplete="off" autofocus="autofocus" onkeydown="if (event.keyCode == 13) { takeName(); return false; }"><h2 id="pressenter" onclick="takeName()">ENTER</h2></div>';
+	var nT = '<div class="form-group"><input type="text" class="form-control" id="name" placeholder = "Hi! What\'s your name?" autocomplete="off" autofocus="autofocus" onkeydown="if (event.keyCode == 13) { takeName(); return false; }"><h2 id="pressenter" onclick="takeName()">ENTER</h2></div>';
 	changeById(idPopulate, nT, 0);
 }
 
@@ -36,15 +37,30 @@ function askInitialQueries(name) {
 	//determine user's desired activity location.
 	var userQuery = '<h2>Ok, ' + user_dict.name + ', I am going to need to ask a couple questions. </h2>';
 	userQuery += '<h2>What location do you want to explore for activities?</h2></br>'
-	var nT = '<div class="form-group"><input type="text" class="form-control" id="location" placeholder = "Enter Location and Press Enter" autocomplete="off" autofocus="autofocus" onkeydown="if (event.keyCode == 13) { takeLocation(); return false; }"><h2 id="pressenter" onclick="takeLocation()">ENTER</h2></div>';
+	var nT = '<div class="form-group"><input type="text" class="form-control" autofocus="autofocus" id="location" placeholder = "Enter Location and Press Enter" autocomplete="off" onkeydown="if (event.keyCode == 13) { takeLocation(); return false; }"><h2 id="pressenter" onclick="takeLocation()">ENTER</h2></div>';
 	changeById(idPopulate, userQuery + nT, 0);
 }
 
 function takeLocation() {
 	var locationInput = document.getElementById('location');
 	var location = locationInput.value;
-	user_dict.location = location;
-	alert(location);
+	var location_str = location.split(" ").join("+")
+	var url = 'https://maps.googleapis.com/maps/api/geocode/json?address='
+	url += location_str + '&key=' + api_token;
+	console.log(url);
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.onreadystatechange = function() {
+		if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+			var json_dct = eval("(" + xmlHttp.responseText + ")");
+			var results = json_dct.results[0];
+			user_dict.lat = results.geometry.location.lat;
+			user_dict.lng = results.geometry.location.lng;
+			loc_str = "Latitude: " + user_dict.lat + " Longitude: " + user_dict.lng;
+			changeById(idPopulate, loc_str, 0);
+		}
+	}
+	xmlHttp.open('GET', url, true);
+	xmlHttp.send(null);
 }
 
 function queryDecisionTree(){
