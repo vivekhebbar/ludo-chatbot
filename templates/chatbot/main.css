@@ -4,9 +4,9 @@ html {
 body{
   background: url(img/concert.jpeg) no-repeat center center fixed;
   -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   color: white;
   font-family: 'Lato', sans-serif;
   font-weight: 100;
@@ -51,18 +51,20 @@ h2 {
   width: 100%;
   float: left;
   clear: left;
-  -webkit-transition: opacity 1s;
+  /*-webkit-transition: opacity 1s;
   -moz-transition: opacity 1s;
   -o-transition: opacity 1s;
   transition: opacity 1s;
   -webkit-transition-timing-function: linear;
   -moz-transition-timing-function: linear;
   -o-transition-timing-function: linear;
-  transition-timing-function: linear;
+  transition-timing-function: linear;*/
 }
 #forPopulate {
   background-color: #d3d3d3;
   background-opacity: 0.5;
+  min-height: 100px;
+  max-height: 60%;
 }
 }
 .form-group {
@@ -85,7 +87,7 @@ h2 {
 }
 #name:focus {
   color: #ffffff;
-  opacity: 0.75;
+  opacity: 0.9;
 }
 .form-group h2 {
   font-size: 24px;
