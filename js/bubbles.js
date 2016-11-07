@@ -4,10 +4,17 @@ var link_dict = {'Golden West Brewery': 'https://www.eventbrite.com/e/brewery-to
  'Spanish Cooking Class': 'https://www.eventbrite.com/e/spanish-cooking-class-in-berkeley-tickets-27416225669?aff=es2',
  'Holiday Cooking Boot Camp': 'https://www.eventbrite.com/e/holiday-boot-camp-cooking-class-in-berkeley-pies-and-tarts-tickets-27416504503?aff=ehomecard'}
 
-var justToSee = 'alabama';
+var choices = new Array;
 
-function bubbleCSV(id, file){
-  var svg = d3.select(id),
+Array.prototype.clear = function() {
+  while (this.length) {
+    this.pop();
+  }
+};
+
+
+function bubbleCSV(select_id, file){
+  var svg = d3.select(select_id),
     width = +svg.attr("width");
     height = +svg.attr("height");
 
@@ -44,18 +51,29 @@ function bubbleCSV(id, file){
         .style("fill", function(d) { return color(d.package); })
         .style("opacity", function(d) { return 0.5;})
         .on("click", function() {
-          if (link_dict[d3.select(this).attr("id")]) {
-            openInNewTab(link_dict[d3.select(this).attr("id")]);
-          } else {
-            var circ = d3.select(this); //just to make sure
+          var circ = d3.select(this);
+          if (link_dict[circ.attr("id")]) {
+            openInNewTab(link_dict[circ.attr("id")]);
+          } else { 
+            var cid = circ.attr("id");
+            if (choices.indexOf(cid) == -1) {
+              choices.push(circ.attr("id"));
+            } else{
+              choices.splice(choices.indexOf(cid), 1);
+            }
+            console.log(choices);
             var opac = circ.style('opacity');
             circ.style.transition = "all 0.5s";
             circ.style.WebKitTransition = "all 0.5s";
             if (opac == 1) {
               circ.style('opacity', 0.5);
+              var textPath = '[clip-path=' + '"url(#clip-' + circ.attr("id") + '"]';
+              d3.select(textPath).style('color', '#fff');
             } else if (opac == 0.5) {
               circ.style('opacity', 1);
-              circ.moveToFront();
+              circ.style('border', '1px solid white');
+              var textPath = '[clip-path=' + '"url(#clip-' + circ.attr("id") + '"]';
+              d3.select(textPath).style('color', '#fff');
             }
           }
         });
@@ -76,10 +94,7 @@ function bubbleCSV(id, file){
         .attr("text-anchor", "middle");
 
     node.append("title")
-        .text(function(d) { return d.id + "\n" + format(d.value); })
-        .on("click", function(d) {
-        document.getElementById(d.id).click();
-      });
+        .text(function(d) { return d.id + "\n" + format(d.value); });
   });
 }
 
@@ -87,4 +102,3 @@ function openInNewTab(url) {
   var win = window.open(url, '_blank');
   win.focus();
 }
-
